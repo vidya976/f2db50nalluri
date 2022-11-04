@@ -1,0 +1,17 @@
+extends layout
+block content
+    div(class="container-fluid")
+      h1= title
+    - let results=[{zara_dresstype:"Shirt",zara_color:"Pink",zara_price:20},{zara_dresstype:"T-Shirt",zara_color:"White",zara_price:15},{zara_dresstype:"Trousers",zara_color:"Black",zara_price:18}]
+       div(class="row")
+           each form,index in results
+                div(class = "col-sm-2 bg-warning" onclick=`buy(${index})`) #{form.zara_dresstype} 
+                div(class = "col-sm-2 bg-warning" onclick=`buy(${index})`) #{form.zara_color} 
+                div(class = "col-sm-2 bg-warning" onclick=`buy(${index})`) #{form.zara_price}
+                hr
+    script.
+        function buy(itemNo)
+        {
+            alert(`You purchased Item ${itemNo+1}`)
+        }
+

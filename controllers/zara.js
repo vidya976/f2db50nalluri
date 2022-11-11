@@ -55,3 +55,32 @@ exports.zara_view_all_Page = async function(req, res) {
         res.send(`{"error": ${err}}`);
         }
         };
+        exports.zara_detail = async function(req, res) {
+            console.log("detail" + req.params.id)
+            try {
+            result = await zara.findById( req.params.id)
+            res.send(result)
+            } catch (error) {
+            res.status(500)
+            res.send(`{"error": document for id ${req.params.id} not found`);
+            }
+           };
+           exports.zara_update_put = async function(req, res) {
+            console.log(`update on id ${req.params.id} with body
+           ${JSON.stringify(req.body)}`)
+            try {
+            let toUpdate = await zara.findById( req.params.id)
+            // Do updates of properties
+            if(req.body.zara_dresstype)
+            toUpdate.zara_dresstype = req.body.zara_dresstype;
+            if(req.body.zara_color) toUpdate.zara_color = req.body.zara_color;
+            if(req.body.zara_price) toUpdate.zara_price = req.body.zara_price;
+            let result = await toUpdate.save();
+            console.log("Sucess " + result)
+            res.send(result)
+            } catch (err) {
+            res.status(500)
+            res.send(`{"error": ${err}: Update for id ${req.params.id}
+           failed`);
+            }
+           }

@@ -1,0 +1,28 @@
+extends layout
+block content
+ h1= title
+ form(id='zaraForm', action="/resource/zaras", method="POST")
+  div.form-group
+   label.zaraAttr(for='zara_color') zara Color
+   input#zara_color(type='text', name='zara_color')
+  div.form-group
+   label.zaraAttr(for='zara_dresstype') zara dresstype
+   input#zara_dresstype(type='text', name='zara_dresstype')
+  div.form-group
+   label.zaraAttr(for='zara_price') zara price
+   input#zara_price(type='text', name='zara_price')
+  input(type="submit")
+ script.
+  document.forms['zaraForm'].addEventListener('submit', (event) => {
+    event.preventDefault();
+    fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target)) 
+    }).then((resp) => {
+        return resp.json();
+    }).then((body) => {
+        alert("Save succeded")
+    }).catch((error) => {
+        alert("Save failed " + error )
+    });
+   }); 

@@ -1,0 +1,49 @@
+extends layout
+
+block content
+  h1= title
+
+  if(toShow == null)
+    h2 No instance to delete
+  else
+    - let zaraid = toShow._id
+    - let zara_color = toShow.zara_color
+    - let zara_dresstype = toShow.zara_dresstype
+    - let zara_price = toShow.zara_price
+    - let actionid = "/resource/zaras/" + zaraid
+    script let actionid = "#{actionid}"
+    div
+     div.row 
+      div(class='zaraAttr mr-3') zara ID is:
+      div #{zaraid}
+     div.row
+      div(class='zaraAttr mr-3') zara color is:
+      div #{zara_color}
+     div.row
+      div(class='zaraAttr mr-3') zara dresstype is:
+      div #{zara_dresstype}
+     div.row
+      div(class='zaraAttr mr-3') zara Price is:
+      div #{zara_price}
+    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+  script.
+   function cancel() {
+    window.location.href='/zaras'
+    }
+  script.
+    function deleteOnid() {
+     console.log("starting delete")
+     fetch(actionid, {
+      method: 'DELETE'
+     }).then((resp) => {
+        return resp.json();
+     }).then((body) => {
+        alert("Delete succeded")
+        window.location.href='/zara'
+     }).catch((error) => {
+        alert("Delete failed " + error )
+     });
+    }
+
+    

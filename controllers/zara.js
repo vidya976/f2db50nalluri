@@ -84,3 +84,64 @@ exports.zara_view_all_Page = async function(req, res) {
            failed`);
             }
            }
+           // Handle zara delete on DELETE. 
+exports.zara_delete = async function(req, res) { 
+    console.log("delete "  + req.params.id) 
+    try { 
+        result = await zara.findByIdAndDelete( req.params.id) 
+        console.log("Removed " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": Error deleting ${err}}`); 
+    } 
+}; 
+// Handle a show one view with id specified by query 
+exports.zara_view_one_Page = async function(req, res) { 
+    console.log("single view for id "  + req.query.id) 
+    try{ 
+        result = await zara.findById( req.query.id) 
+        res.render('zaradetail',  
+{ title: 'zara Detail', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+// Handle building the view for creating a zara.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.zara_create_Page = function(req, res) {
+    console.log("create view")
+    try{
+    res.render('zaracreate', { title: 'zara Create'});
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+   };
+   exports.zara_update_Page = async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+    let result = await zara.findById(req.query.id)
+    res.render('zaraupdate', { title: 'zara Update', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+    exports.zara_delete_Page = async function(req, res) {
+        console.log("Delete view for id " + req.query.id)
+        try{
+        result = await zara.findById(req.query.id)
+        res.render('zaradelete', { title: 'zara Delete', toShow:
+        result });
+        }
+        catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+        }
+        };

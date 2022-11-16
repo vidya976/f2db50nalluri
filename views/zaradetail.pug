@@ -1,0 +1,25 @@
+extends layout 
+ 
+block content 
+  h1= title 
+  if(toShow == null)
+    h2 No instance to update
+  else
+ 
+  - let zaraid = toShow._id 
+  - let zara_dresstype = toShow.zara_dresstype 
+  - let zara_color = toShow.zara_color 
+  - let zara_price  = toShow.zara_price
+  div 
+    div.row 
+      div(class='zaraAttr mr-3') zara ID is: 
+      div #{zaraid} 
+    div.row 
+      div(class='zaraAttr mr-3') zara Type is: 
+      div #{zara_dresstype} 
+    div.row 
+      div(class='zaraAttr mr-3') zara price is: 
+      div #{zara_price} 
+    div.row 
+      div(class='zaraAttr mr-3') zara Color is: 
+      div #{zara_color} 
